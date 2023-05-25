@@ -91,24 +91,24 @@ function timerDisplay(value) {
 
 function onButtonClick() {
     const selectTimeDates = flapt.selectedDates[0];
-
+  
   timer = setInterval(() => {
-      const startTime = new Date();
-      startButton.disabled = true;
+    const startTime = new Date();
     const countdown = selectTimeDates - startTime; 
-
-    if (countdown < 0) {
-        clearInterval(timer);
+    startButton.disabled = true;
+    startButton.style.backgroundColor = 'grey';
+    
+    if (countdown < 0 || countdown <= 1000) {
+      clearInterval(timer);
+      Notify.success(`Time is over 🥳`);
     }
     updateTimerFace(convertMs(countdown));
   }, 1000);
-    startButton.style.backgroundColor = 'grey';
     timerSeconds.style.color = 'red';
     timerMinutes.style.color = '#3298a8';
     timerHours.style.color = '#3298a8';
-    timerdDays.style.color = '#3298a8';
+  timerdDays.style.color = '#3298a8';
 };
-
 
 
 

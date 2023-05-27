@@ -41,7 +41,6 @@ function createPromise(position, delay) {
       rej({ position, delay });
     }, delay);
   });
-
 };
 
 

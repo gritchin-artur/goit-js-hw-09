@@ -28,8 +28,26 @@ greateButton.style.backgroundColor = '#44a832';
 
 form.addEventListener('submit', onCreatePromises);
 
- const delay = Number.parseInt(delayInput.value);
+
+
+function onCreatePromises(event) {
+  event.preventDefault();
+
+   const delay = Number.parseInt(delayInput.value);
 const step = Number.parseInt(stepInput.value);
+
+  for (let i = 0; i < amountInput.value; i++) {
+    createPromise(i + 1, delay + step * i)
+      .then(({ position, delay }) => {
+        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      })
+      .catch(({ position, delay }) => {
+        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+      });
+  };
+  form.reset();
+};
+
   
 function createPromise(position, delay) {
   return new Promise((res, rej) => {
@@ -44,20 +62,6 @@ function createPromise(position, delay) {
 };
 
 
-function onCreatePromises(event) {
-  event.preventDefault();
-
-  for (let i = 0; i < amountInput.value; i++) {
-    createPromise(i + 1, delay + step * i)
-      .then(({ position, delay }) => {
-        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-      })
-      .catch(({ position, delay }) => {
-        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-      });
-  };
-  form.reset();
-};
 
 
 
